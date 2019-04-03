@@ -15,7 +15,10 @@ body.onload = ()=>{
         console.log({cCoords})
         draw({x: pageX - cCoords.left, y: pageY - cCoords.top});
     })
-    window.addEventListener('resize', ()=>{
+
+    //
+
+    window.addEventListener('resize', () => {
         const bodySize = body.getBoundingClientRect();
         canvas.width = bodySize.width - 6;
     })
@@ -32,6 +35,13 @@ body.onload = ()=>{
         const clearSize = rectSize - thickness * 2;
         ctx.clearRect(x - clearSize / 2 , y - clearSize / 2, clearSize, clearSize)
     }
+    // c - circumference / length of the circle
+    // c = pi * d = 2 * pi * R
+    // x - desired count of spans
+    // y - length of span (curved)
+    // an - angle
+    //
+    // y = c / x
 
 }
 

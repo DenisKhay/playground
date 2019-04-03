@@ -12,7 +12,7 @@ The third, Eastasia, only emerged as a distinct unit after another decade of con
 ----
 The frontiers between the three super-states are in some places arbitrary, and in others they fluctuate according to the fortunes of war, but in general they follow geographical lines.   
 ++++  
-Границы между тремя супер-державами были произвольными в некоторых местах, а в других они колебались в соответствии с успехом в войне, но в основном они следовали по географическим границами.
+Границы между тремя супер-державами были произвольными в некоторых местах, а в других они колебались в соответствии с успехом в войне, но в основном они следовали по географическим границам.
 ----
 Eurasia comprises the whole of the northern part of the European and asiatic land-mass, from Portugal to the Bering Strait.  
 ++++  
