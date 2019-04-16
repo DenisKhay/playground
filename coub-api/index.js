@@ -13,4 +13,4 @@ fetch(url)
     })
     .catch(e => {
         console.log('error: ', e);
-    })
+    });
