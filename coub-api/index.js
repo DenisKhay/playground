@@ -8,7 +8,7 @@ fetch(url)
     })
     .then(data => {
         console.log('data: ', data);
-        const links = data.coubs.map(v=>v.file_versions.html5.video);
+        const links = data.coubs.map(v => v.file_versions.html5.video);
         console.log('data: ', links);
     })
     .catch(e => {
