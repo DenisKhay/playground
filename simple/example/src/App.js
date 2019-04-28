@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
-import './App.css';
-
+import './App.scss';
+import 'spectre.css/dist/spectre.min.css'
 class App extends Component {
 
     constructor(props){
@@ -18,11 +18,19 @@ class App extends Component {
         });
     }
 
+    handleDelete(indx) {
+        const items = [].concat(this.state.items);
+        items.splice(indx, 1);
+        this.setState({
+            items
+        })
+    }
+
     render(){
         const { items } = this.state;
         return (
             <div className="App">
-                <List items={items}></List>
+                <List items={items} onDelete={(i)=>this.handleDelete(i)}></List>
                 <Form onSubmit={(results)=>this.handleSubmit(results)}></Form>
             </div>
         );
@@ -32,13 +40,34 @@ class App extends Component {
 
 function List({items, onDelete}) {
 
-    const rows = items.map(v=>{
-        return <div><span>{v.name}</span> <span>{v.job}</span> <button></button></div>
+    const rows = items.map((v, i)=>{
+
+        return (
+            <tr key={i}>
+                <td>{v.name}</td>
+                <td>{v.job}</td>
+               <td><button className={'btn'} onClick={()=>onDelete(i)}>Delete</button></td>
+            </tr>
+        )
     })
 
+    if(!rows.length) {
+        return null
+    }
+
     return (
-        <div>
-        </div>);
+        <table className={'table'}>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Genre</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                {rows}
+            </tbody>
+        </table>);
 }
 
 class Form extends Component {
@@ -65,6 +94,7 @@ class Form extends Component {
 
         if(this.state.name && this.state.job) {
             this.props.onSubmit(this.state);
+            this.setState(this.initState);
         }
 
     }
@@ -73,10 +103,12 @@ class Form extends Component {
         const {job, name} = this.state;
 
         return (
-            <form>
-                <input type="text" value={name} name={'name'} onChange={(e)=> this.handleChange(e)}/>
-                <input type="text" value={job} name={'job'} onChange={(e) => this.handleChange(e)}/>
-                <input type="button" onClick={() => this.handleSubmit()} value={'Submit!'}/>
+            <form className="form-horizontal">
+                <div className="form-group">
+                    <div><input type="text" placeholder={'Name'} className={'form-input'} value={name} name={'name'} onChange={(e)=> this.handleChange(e)}/></div>
+                    <div><input type="text" placeholder={'Job'} className={'form-input'} value={job} name={'job'} onChange={(e) => this.handleChange(e)}/></div>
+                    <div><input type="button" className={'btn'} onClick={() => this.handleSubmit()} value={'Submit!'}/></div>
+                </div>
             </form>
 
         );
