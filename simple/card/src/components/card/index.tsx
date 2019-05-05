@@ -5,9 +5,9 @@ import './card.scss';
 
 
 export class Card extends Component {
-    public render(){
+    public render() {
         return (
             <div>Hello</div>
-        )
+        );
     }
 }
