@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+</head>
+<body dir=ltr>
+    <div class="container">
+        <h2>Please fill the form</h2>
+        <form>
+            <div class="form-group">
+                <label for="id-name">Your Name</label>
+                <input id="id-name" type="text" class="form-control" placeholder="Input your name...">
+                <div class="form-alert-line">And yet</div>
+            </div>
+            <div class="form-group invalid">
+                <label for="id-pass">Password</label>
+                <input id="id-pass" type="password" class="form-control" placeholder="Password here please...">
+                <div class="form-alert-line">Something wrong happened with your input</div>
+            </div>
+            <div class="form-btn-row">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
