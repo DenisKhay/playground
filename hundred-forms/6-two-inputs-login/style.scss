@@ -8,7 +8,7 @@ $light-gray: rgb(201, 201, 201);
     box-sizing: border-box;
     font-size: 20px;
 }
-// todo: font size - in which dimensions is better?
+// TODO: font size - in which dimensions is better?
 .container {
     display: flex;
     flex: 1 1 auto;
@@ -65,7 +65,7 @@ $light-gray: rgb(201, 201, 201);
     border: 2px solid darken($red, 7%);
     padding-right: 50px;
     position: relative;
-    // todo: - review below, not so good
+    // TODO: - review below, not so good
     .icon-close {
         position: absolute;
         height: 100%;
