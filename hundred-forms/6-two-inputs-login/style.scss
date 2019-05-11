@@ -1,0 +1,103 @@
+
+$primary-color: rgb(236, 171, 222);
+$primary-txt-color-on-prim: gray;
+$primary-txt-color-on-white: rgb(82, 82, 82);
+$light-gray: rgb(201, 201, 201);
+* {
+    font-family: 'Open Sans Condensed';
+    box-sizing: border-box;
+    font-size: 20px;
+}
+// todo: font size - in which dimensions is better?
+.container {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    align-items: center;
+}
+.login-modal {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $light-gray;
+    width: 500px;
+    .header{
+        flex: 0 0 50px;
+        height: 50px;
+        display: flex;
+        padding: 0 20px;
+        align-items: center;
+        background-color: $primary-color;
+        border-bottom: 1px solid gray;
+    }
+    .body {
+        flex: 1 1 auto;
+        padding: 10px;
+    }
+    .footer {
+        flex: 1 0 60px;
+        border-top: 1px solid gray;
+        padding: 10px;
+    }
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.form-control {
+    width: 100%;
+    border: 2px solid $light-gray;
+    border-radius: 5px;
+    height: 40px;
+}
+
+.control-alert {
+    min-height: 15px;
+    font-size: 12px;
+    font-style: italic;
+}
+.form-alert {
+    $red: rgb(255, 66, 66);
+    background-color: $red;
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border: 2px solid darken($red, 7%);
+    padding-right: 50px;
+    position: relative;
+    // todo: - review below, not so good
+    .icon-close {
+        position: absolute;
+        height: 100%;
+        width: 50px;
+        right: 0;
+        top: 0;
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.form-label {
+    font-size: 24px;
+    padding: 0 0 5px;
+}
+.form-btn-group {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn {
+    min-width: 120px;
+    padding: 0 20px;
+    height: 50px;
+    border-radius: 5px;
+    border: 2px solid darken($primary-color, 10%);
+    color: darken($primary-color, 10%);
+    margin: 0 10px;
+    background-color: white;
+}
+.btn-primary {
+
+}

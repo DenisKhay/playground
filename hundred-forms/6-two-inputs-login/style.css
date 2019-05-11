@@ -1,0 +1,136 @@
+* {
+  font-family: 'Open Sans Condensed';
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 20px;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.login-modal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border: 1px solid #c9c9c9;
+  width: 500px;
+}
+
+.login-modal .header {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 50px;
+          flex: 0 0 50px;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #ecabde;
+  border-bottom: 1px solid gray;
+}
+
+.login-modal .body {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  padding: 10px;
+}
+
+.login-modal .footer {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 60px;
+          flex: 1 0 60px;
+  border-top: 1px solid gray;
+  padding: 10px;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.form-control {
+  width: 100%;
+  border: 2px solid #c9c9c9;
+  border-radius: 5px;
+  height: 40px;
+}
+
+.control-alert {
+  min-height: 15px;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.form-alert {
+  background-color: #ff4242;
+  color: white;
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ff1e1e;
+  padding-right: 50px;
+  position: relative;
+}
+
+.form-alert .icon-close {
+  position: absolute;
+  height: 100%;
+  width: 50px;
+  right: 0;
+  top: 0;
+  font-size: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.form-label {
+  font-size: 24px;
+  padding: 0 0 5px;
+}
+
+.form-btn-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.btn {
+  min-width: 120px;
+  padding: 0 20px;
+  height: 50px;
+  border-radius: 5px;
+  border: 2px solid #e381ce;
+  color: #e381ce;
+  margin: 0 10px;
+  background-color: white;
+}
+/*# sourceMappingURL=style.css.map */
