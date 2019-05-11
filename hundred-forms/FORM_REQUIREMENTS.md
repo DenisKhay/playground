@@ -10,3 +10,4 @@ All of the forms in this folder is a kinda challenge, so the main rule of the ch
 2. At the end it should be possible to make inline, labeled, aligned, unaligned forms within 30 min
 3. Forms should support last 2 versions of all popular browsers.
 4. All forms should be rtl ltr compatible   
+6. Mobile compatible
