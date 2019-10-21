@@ -6,3 +6,9 @@ module.exports = {
     password: process.env.BB_APP_PASSWORD,
     branch: process.env.BB_GIT_BRANCH,
 };
+
+// update-server \
+// --portal feature/some-32342 \
+// --private-server feature/mpa-23432 \
+// --trigger-engine feature/mmss-34 \
+// --resource-proxy feature/sss-sdfsd \
