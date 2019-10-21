@@ -16,4 +16,10 @@ const payload = {
     }
 };
 
-axios.post(url, payload, { auth: { username, password } });
+axios.post(url, payload, {auth: {username, password}})
+    .then((data) => {
+        console.log(data);
+    })
+    .catch((e) => {
+        console.error(e);
+    });
