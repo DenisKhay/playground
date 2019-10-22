@@ -7,7 +7,7 @@ module.exports = {
     branch: process.env.BB_GIT_BRANCH,
 };
 
-// update-server \
+// run-pipelines-for-server qa3 \
 // --portal feature/some-32342 \
 // --private-server feature/mpa-23432 \
 // --trigger-engine feature/mmss-34 \
