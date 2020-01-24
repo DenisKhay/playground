@@ -23,3 +23,4 @@ The small app helping to deploy different kind of projects with bb pipelines.
    - Branch (master default)
    - Server
    - Pipeline
+   
