@@ -1,0 +1,19 @@
+{
+  "name": "ionic-latest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "cordova": "9.0.0",
+    "cordova-res": "0.8.1",
+    "ionic": "5.4.15",
+    "native-run": "0.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
