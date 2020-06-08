@@ -18,15 +18,8 @@ function rot13(str) {
 }
 
 function shiftWithinRange(number, [min, max], shift) {
-    if(number < min || number > max) {
-        return number;
-    }
-    number = number + shift;
-    if(number <= max) {
-        return number;
-    }
-    const diff = (number - min) % (max - min);
-    return min + diff;
+    // if value is lesser
+    // if value is bigger
 }
 
 module.exports = {
