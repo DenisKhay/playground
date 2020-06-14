@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component, useRef, Fragment, useState, useCallback } from 'react';
 import './App.scss';
 
 function App() {
+
+    const ref = useRef<any>(null);
+    const [st, setSt] = useState(false);
+    const cb = useCallback((refin: any) => {console.log('ref binded ->', refin); ref.current = refin}, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Fragment>
+        <div className="App">
+          <HereWeGo refForSomething={cb}/>
+        </div>
+        <button onClick={() => {ref.current?.focus?.(); setSt((st) => !st)}}>Something</button>
+      </Fragment>
+
   );
 }
 
 export default App;
+
+
+class HereWeGo extends Component<any, any> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            foo: false
+        };
+    }
+  sayHello() {
+    console.log('hello!');
+  }
+  render() {
+      return (
+          <Fragment>
+              {this.state.foo &&
+              <input type={'text'} ref={this.props.refForSomething} />
+              }
+              <button onClick={() => this.setState(({ foo }: any) => ({foo: !foo}))}>{this.state.foo ? 'hide': 'show'}</button>
+          </Fragment>
+      )
+  }
+}
