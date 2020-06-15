@@ -4,7 +4,7 @@ function solution(input, markers) {
         const st = str.replace(regexp, '$1');
         return st;
     }, input)
-};
+}
 
 const here = solution("apples, plums % and bananas\npears\noranges !applesauce", ["%", "!"])
 
