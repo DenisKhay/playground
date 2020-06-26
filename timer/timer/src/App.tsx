@@ -1,25 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import {
+  Router,
+  Switch,
+  Link,
+  Route,
+  useHistory,
+} from 'react-router-dom'
+import { MainPage } from './pages/MainPage';
+import { PageNotFound } from './pages/PageNotFound';
+import history from 'history/browser'
+
+const colors = [
+  '#000000',
+  '#0000ff',
+  '#00ff00',
+  '#00ffff',
+  '#ff0000',
+  '#ff00ff',
+  '#ffff00',
+  '#ffffff',
+]
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router history={history} >
+        <div>
+          <Switch>
+          <Route path='/' exact>
+          <MainPage />
+        </Route>
+        <Route path='*'>
+          <PageNotFound />
+        </Route>
+        </Switch>
+        </div>
+      </Router>
   );
 }
 
