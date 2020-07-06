@@ -26,16 +26,14 @@ const colors = [
 function App() {
   return (
       <Router history={history} >
-        <div>
           <Switch>
-          <Route path='/' exact>
-          <MainPage />
-        </Route>
-        <Route path='*'>
-          <PageNotFound />
-        </Route>
-        </Switch>
-        </div>
+            <Route path='/' exact>
+              <MainPage />
+            </Route>
+            <Route path='*'>
+            <PageNotFound />
+              </Route>
+            </Switch>
       </Router>
   );
 }
