@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom'
 import { MainPage } from './pages/MainPage';
 import { PageNotFound } from './pages/PageNotFound';
+import { CountdownSetup } from './design-mockups/countdown';
 import history from 'history/browser'
 
 const colors = [
@@ -27,12 +28,15 @@ function App() {
   return (
       <Router history={history} >
           <Switch>
-            <Route path='/' exact>
-              <MainPage />
+            <Route path='/design-mockups/countdown-setup'>
+                <CountdownSetup />
+            </Route>
+            <Route exact path='/'>
+              <MainPage/>
             </Route>
             <Route path='*'>
-            <PageNotFound />
-              </Route>
+              <PageNotFound />
+            </Route>
             </Switch>
       </Router>
   );

@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from "react"
 import { Link } from 'react-router-dom';
-
-export const MainPage: FC = () => {
+import './DesignMockups.scss'
+export const CountdownSetup: FC = () => {
     return (
         <Fragment>
             <header className="header">
@@ -27,7 +27,7 @@ export const MainPage: FC = () => {
             <footer className="footer">
                 <nav>
                     <ul className="footer-menu">
-                        <li><Link to="/about">Main Page</Link></li>
+                        <li><Link to="/about">About</Link></li>
                         <li><Link to="/terms-of-use">Terms Of Use</Link></li>
                         <li><Link to="/github">Github</Link></li>
                     </ul>
@@ -37,7 +37,7 @@ export const MainPage: FC = () => {
     )
 }
 
-export const Time: FC = () => {
+const Time: FC = () => {
     return (
         <div className="time">
             <div className="time_section">
