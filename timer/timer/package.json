@@ -19,7 +19,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,10 +39,19 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-links": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/preset-create-react-app": "^3.1.4",
+    "@storybook/preset-scss": "^1.0.2",
+    "@storybook/react": "^5.3.19",
     "@types/react-router-dom": "^5.1.5",
+    "css-loader": "^4.0.0",
     "history": "^5.0.0",
     "node-sass": "^4.14.1",
     "normalize.css": "^8.0.1",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "sass-loader": "^9.0.2",
+    "style-loader": "^1.2.1"
   }
 }
