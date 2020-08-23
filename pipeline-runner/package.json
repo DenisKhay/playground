@@ -1,9 +1,0 @@
-{
-  "name": "pipeline-runner",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "devDependencies": {
-    "axios": "0.19.1"
-  }
-}
