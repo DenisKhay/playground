@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "inquirer": "7.0.0",
-    "simple-git": "1.126.0"
+    "simple-git": "3.3.0"
   }
 }
