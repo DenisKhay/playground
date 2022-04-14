@@ -20,7 +20,6 @@ function readLine() {
     return inputString[currentLine++];
 }
 
-
 function shapeFits(field: number[][], shape: number[][], offset: {x: number, y: number}) {
     const fieldSize = {
         x: field[0].length,
@@ -39,7 +38,6 @@ function shapeFits(field: number[][], shape: number[][], offset: {x: number, y: 
 
     return true;
 }
-
 function getFigureValuesByCoord(x: number, y: number, shape: number[][], field: number[][]) {
     if(!shapeFits(field, shape, {x, y})) {
         return;
@@ -60,7 +58,6 @@ function getFigureValuesByCoord(x: number, y: number, shape: number[][], field: 
     }
     return values;
 }
-
 function getSum(arr: number[][] | undefined): number | undefined {
     if(arr == null) {
         return;
@@ -87,8 +84,6 @@ function getLargestShapeSumFromField(shape: number[][], field: number[][]) {
     }
     return largest;
 }
-
-
 function main() {
 
     let field: number[][] = Array(6);
