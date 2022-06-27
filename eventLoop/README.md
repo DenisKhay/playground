@@ -1,8 +1,3 @@
-// todo  
-// Sources  
-// what is happening (explanation of the processes)  
-// 
-// try to think of different cases, what is not clear
 
 # Code listing from the [Video](https://www.youtube.com/watch?v=HHuKGuIVvTA) with some explanation of what's going on
 
@@ -62,7 +57,6 @@ Checks = 1
 
 
 ### Print out Promise next tick (e), Next tick (k)
-// TODO will it go forever it two types of the microtask will schedule each other
 Previously scheduled nextTicks microtasks execution  
 #### Async tasks scheduled / thrown into thread pull (including those who were scheduled before)
 Microtasks (NextTick) -2 = 0  
@@ -79,7 +73,8 @@ then node js will decide what to run first depending on what it considers best f
 details please read the [article](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)  
 But also you can argue - Why it had ignored running poll callback - see it is placed before check phase!
 Well as it has explained, the node has some special behavior for it - when it climbs down the poll phase and "sees" there is something in 
-check phase - it will (TODO: always?) postpone poll operations, go out of poll phase and execute what is in checks phase first. // TODO clarify this
+check phase - it will (TODO: always?) postpone poll operations, go out of poll phase and execute what is in checks phase first. 
+// TODO clarify this - it seems this stage in this exact example can be also affected by fact that reading of file just takes some time?
 #### Async tasks scheduled / thrown into thread pull (including those who were scheduled before)
 Microtasks (NextTick) = 0  
 Microtasks (Promise) = 0  
