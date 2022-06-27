@@ -6,6 +6,9 @@
   "scripts": {
     "start": "ts-node index.ts"
   },
+  "engines": {
+    "node": "18"
+  },
   "dependencies": {
     "@types/node": "^18.0.0",
     "ts-node": "^10.8.1",
