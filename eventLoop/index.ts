@@ -11,7 +11,7 @@ const main = async () => {
   process.nextTick(() => console.log('Promise next tick (e)')); // e
  });
 
- fs.readFile('index.ts', () => {
+ fs.readFile('dummy.txt', () => {
   console.log('Read file (f)'); //f
   setTimeout(() => console.log('Read file SetTimeout (g)'), 0); // g
   setImmediate(() => console.log('Read file SetImmediate (h)')); // h
