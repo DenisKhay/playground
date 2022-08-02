@@ -1,6 +1,6 @@
-import React, { MutableRefObject, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { MutableRefObject, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import './App.scss';
-import { randAbbreviation, randAddress, randCompanyName, randCountry, randFirstName, randLastName, randWord } from '@ngneat/falso';
+import { randAbbreviation, randAddress, randCompanyName, randCountry, randFirstName, randLastName, randNumber, randWord } from '@ngneat/falso';
 import { VariableSizeGrid as Grid } from 'react-window';
 import Table from 'rc-table';
 import classNames from 'classnames';
@@ -12,8 +12,9 @@ interface DataType {
     country: string;
     code: string;
 }
-const data: DataType[] = [...Array(10000)].map(() => {
+const data: DataType[] = [...Array(1000)].map(() => {
     return {
+        key: randNumber({length: 10}),
         name: randFirstName(),
         lastName: randLastName(),
         company: randCompanyName(),
@@ -71,62 +72,106 @@ const bindRef = (el: MutableRefObject<Grid | null>) => {
     });
     return obj;
 }
+
+const useScroll = (gridRef: any) => {
+    const [scroll, setScroll] = useState({x: 0, y: 0})
+    useLayoutEffect(() => {
+
+        const scrollHandler = (e: any) => {
+             setScroll((s) => {
+                return {
+                    x: e.target.scrollLeft,
+                    y: e.target.scrollTop,
+                }
+            })
+        }
+        const grid = document.getElementsByClassName('virtual-grid')[0]
+            grid.addEventListener('scroll', scrollHandler);
+        return () => grid.removeEventListener('scroll', scrollHandler)
+    }, [])
+    return scroll;
+}
+const findNearestIndexTo = (target: number, iterable: {length: number; [key: number]: unknown}, selector: any) => {
+
+    if(iterable.length === 0) {
+        return null;
+    }
+    if(iterable.length === 1) {
+        return 0;
+    }
+    let lookupSpan = [0, iterable.length - 1];
+    while((lookupSpan[1] - lookupSpan[0]) > 1) {
+        const pointerIndex = Math.floor((lookupSpan[1] - lookupSpan[0]) / 2) + lookupSpan[0];
+        const value = selector(iterable[pointerIndex]);
+        if(value === target) {
+            return pointerIndex;
+        } else if (value > target) {
+            lookupSpan = [lookupSpan[0], pointerIndex];
+        } else {
+            lookupSpan = [pointerIndex, lookupSpan[1]];
+        }
+    }
+    const [start, end] = lookupSpan;
+    const value1 = target - selector(iterable[start]);
+    const value2 = selector(iterable[end]) - target;
+    return value1 > value2 ? end : start;
+}
+
+const findFirstAndLast = (list: NodeList, scrollTop: number, containerHeight: number): [top: number | null, bottom: number | null] => {
+    const topTarget = scrollTop;
+    const bottomTarget = scrollTop + containerHeight;
+    const nearestIndexTop = findNearestIndexTo(topTarget, list, (el: HTMLElement) => el.offsetTop);
+    const nearestIndexBottom = findNearestIndexTo(bottomTarget, list, (el: HTMLElement) => el.offsetTop);
+    return [nearestIndexTop, nearestIndexBottom];
+}
+
 function App() {
+  const tableRef = useRef(null);
+  const [span, setSpan] = useState([0, 99])
+  const internalData = useMemo(() => data.slice(span[0], span[1]), [span])
 
-    const gridRef = useRef<Grid | null>(null);
-    const boundScrollLeftHandler = useMemo(() => bindRef(gridRef), []);
-    const [gridBodyHeight, setGridBodyHeight] = useState(300);
-    const [gridWidth, setGridWidth] = useState(columns.reduce((acc, {width}) => acc + width,0));
-    const renderVirtualList = (rawData: object[], { scrollbarSize, ref, onScroll }: any) => {
-        ref.current = boundScrollLeftHandler;
+  useEffect(() => {
+      const outerTableBody = document.getElementsByClassName('rc-table-body')[0];
+      const innerTableBody = document.getElementsByClassName('rc-table-tbody')[0];
+      let id: number;
+      let scrollTop = outerTableBody.scrollTop;
 
-        return (
-            <Grid
-                ref={gridRef}
-                className="virtual-grid"
-                columnCount={columns.length}
-                columnWidth={index => {
-                    const { width } = columns[index];
-                    return index === columns.length - 1 ? width - scrollbarSize - 1 : width;
-                }}
-                height={gridBodyHeight}
-                rowCount={rawData.length}
-                rowHeight={() => 50}
-                width={gridWidth}
-                onScroll={({ scrollLeft }) => {
-                    onScroll({ scrollLeft });
-                }}
-            >
-                {({ columnIndex, rowIndex, style }) => (
-                    <div
-                        className={classNames('virtual-cell', {
-                            'virtual-cell-last': columnIndex === columns.length - 1,
-                        })}
-                        style={style}
-                    >
-                        r{rowIndex}, c{columnIndex}
-                    </div>
-                )}
-            </Grid>
-        );
-    };
-  useLayoutEffect(() => {
-      const table = document.getElementsByClassName('container-rc-table')[0];
-      const tableHeader = document.getElementsByClassName('rc-table-header')[0];
-      console.log('heeey', table.clientHeight, tableHeader.clientHeight);
-      setGridBodyHeight(table.clientHeight - tableHeader.clientHeight);
-  }, [])
+      const listenerCallback = () => {
+          cancelAnimationFrame(id);
+          id = requestAnimationFrame(() => {
+              const [topNearest, bottomNearest] = findFirstAndLast(innerTableBody.childNodes, outerTableBody.scrollTop, outerTableBody.clientHeight)
+              const direction = outerTableBody.scrollTop < scrollTop ? 'up' : 'down';
+              scrollTop = outerTableBody.scrollTop;
+              console.log('run raf')
+              if(direction === 'down') {
+                  setSpan((span) => {
+                      if((bottomNearest! + 5) > span[1]) {
+                          console.log('set span')
+                          return [
+                              span[0],
+                              span[1] + 10
+                          ]
+                      }
+                      return span;
+                  })
+              } else {
+
+              }
+          })
+      }
+      outerTableBody.addEventListener('scroll', listenerCallback);
+      return () => outerTableBody.removeEventListener('scroll', listenerCallback);
+  }, []);
+  console.log('rerender!')
   return (
     <div className="App">
       <h2>Rc-table virtual list testing</h2>
         <Table
             className={'container-rc-table'}
             columns={columns}
-            data={data}
-            scroll={{ y: 0, x: gridWidth }}
-            components={{
-                body: renderVirtualList as any
-            }}
+            data={internalData}
+            sticky
+            scroll={{y: 700}}
         />
     </div>
   );
