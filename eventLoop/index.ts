@@ -1,29 +1,30 @@
 import fs from 'fs';
 
 const main = async () => {
- console.log('START (a)'); // a
-
- setTimeout(() => console.log('SetTimeout (b)'), 0); // b
- setImmediate(() => console.log('SetImmediate (c)')) // c
-
- Promise.resolve().then(() => {
-  console.log('Promise (d)'); // d
-  process.nextTick(() => console.log('Promise next tick (e)')); // e
- });
 
  fs.readFile('dummy.txt', () => {
   console.log('Read file (f)'); //f
   setTimeout(() => console.log('Read file SetTimeout (g)'), 0); // g
+  setTimeout(() => {
+   console.log('Read file SetTimeout (g)');
+   setTimeout(() => {
+    console.log('tmt inside tmt')
+   });
+   fs.readFile('', () => {
+    console.log('Hell yeah!2, File reading')
+   })
+  }, 0); // g
   setImmediate(() => console.log('Read file SetImmediate (h)')); // h
-  process.nextTick(() => console.log('Read file next tick (i)')); // i
  });
+ fs.readFile('', () => {
+  console.log('Hell yeah!')
+ })
 
- const response = await Promise.resolve('Async/Await');
- console.log(response, ' (j)') // j
-
- process.nextTick(() => console.log('Next tick (k)')) // k
- setTimeout(() => console.log('SetTimeout (l)'), 0) // l
-
- console.log('END (m)') // m;
 }
 main();
+
+// timers
+// idle / prepare
+// poll
+// check - setImmediate
+// 'close' callbacks

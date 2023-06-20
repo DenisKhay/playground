@@ -1,5 +1,5 @@
 
-const getMatchAfter = (prevMatch: string | undefined, patternSymbol: '.' | string, word: string): string | false => {
+const getNextMatchAfter = (prevMatch: string | undefined, patternSymbol: '.' | string, word: string): string | false => {
     if(typeof prevMatch === 'undefined') {
         return ''
     }
@@ -33,52 +33,70 @@ const getPattern = (str: string) => {
         return acc;
     }, [])
 }
+const last = (arr: unknown[]) => arr[arr.length - 1];
 function isMatch(word: string, pattern: string): boolean {
 
     const stack: StackData[] = [];
+    const createStackTop = <T,>(d: T) => stack.push(d);
+    const readStackTop = () => stack[stack.length - 1];
+    const updateStackTop = <T,>(d: T) => {
+        const old = stack.pop();
+        stack.push({
+            ...old,
+            ...d,
+        })
+    }
+    const deleteStackTop = () => stack.pop();
+
     const patternArr = getPattern(pattern);
     let wordCursor = 0;
-    for(let i = 0; pattern.length > i; i++) {
-        const ps = pattern[i];
-        const hasAsterisk = pattern[i+1] === '*';
-        if(hasAsterisk) {
-            const lastStackValue = stack[stack.length - 1];
-            const alreadyBeenHere = lastStackValue?.index === i;
-            const prevMatch = alreadyBeenHere ? lastStackValue.match : undefined;
-            alreadyBeenHere && stack.pop();
-            const minMatch = getMatchAfter(prevMatch, ps, alreadyBeenHere ? word.slice(lastStackValue.wordCursor) : word);
-            if(minMatch === false) {
-                if(stack.length === 0) {
-                    return false;
-                } else {
-                    i = stack[stack.length - 1].index - 1;
-                }
-            } else {
-                if((wordCursor + 1) === (word.length - 1) && (i === pattern.length)) {
+    for(let i = 0; patternArr.length > i; i++) {
+        const matcher = patternArr[i];
+        const wildCarded = matcher.length === 2;
+        const backtracked = stack.length ? (readStackTop().index === i) : false;
+        const stackValue = readStackTop();
+        if(backtracked) {
+            const match = getNextMatchAfter(stackValue?.match, matcher[0], word.slice(stackValue.wordCursor));
+            if(match !== false) {
+                const cursor = stackValue.wordCursor + match.length;
+                if((cursor + 1) >= word.length) {
                     return true;
                 }
-                stack.push({wordCursor, index: i, match: minMatch});
-                wordCursor += minMatch.length;
-                i += 1;
-            }
-        } else {
-            const matched = word[wordCursor] === ps;
-            if(matched) {
-                wordCursor += 1;
-                const lastPatternSymbol = (i + 1) === pattern.length;
-                const wordMatchingFinished = wordCursor === word.length;
-                return lastPatternSymbol && wordMatchingFinished;
+                // 1. if it is not end of the word
+                // 2. If it is not end of the pattern - impossible for the case
+                last(stack).match = match;
+                wordCursor = cursor;
+                i++;
             } else {
-                if(stack.length === 0) {
+                deleteStackTop();
+                if(!stack.length) {
                     return false;
-                } else {
-                    i = stack[stack.length - 1].index - 1;
                 }
+                i = readStackTop().index;
             }
+            continue;
+        }
+        if(wildCarded) {
+            const newStackValue: StackData = {
+                match: '',
+                index: i,
+                wordCursor,
+            }
+            // if end of pattern and not end of word?
+            //      we should:
+            //          match the last pattern with the rest of the word
+            //          return true else false
+            // if end of pattern and end of word? (meaning cursor points on undefined)
+            //     return true
+            // if end of word and end of pattern?
+            // if end of word and not end of pattern?
+
+        } else {
+
         }
     }
     return false;
 }
 
-const matched = isMatch('aab', 'c*a*b*');
+const matched = isMatch('aab', 'c*a*b*cc*.');
 console.log('matched', matched);
