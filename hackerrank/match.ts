@@ -1,102 +1,24 @@
-
-const getNextMatchAfter = (prevMatch: string | undefined, patternSymbol: '.' | string, word: string): string | false => {
-    if(typeof prevMatch === 'undefined') {
-        return ''
-    }
-    const length = prevMatch.length;
-    const nextLength = length + 1;
-    if(word.length < nextLength) {
-        return false;
-    }
-    const wordSlice = word.slice(0, nextLength);
-    if(patternSymbol === '.') {
-        return wordSlice;
-    }
-    const pattern = Array(nextLength).fill(patternSymbol).join('');
-    if(pattern === wordSlice) {
-        return wordSlice;
-    }
-    return false;
-}
-interface StackData {
-    match: string
-    index: number
-    wordCursor: number
-}
-const getPattern = (str: string) => {
-    return str.split('').reduce<string[]>((acc, item) => {
-        if(item === '*') {
-            acc[acc.length - 1] = (acc[acc.length - 1] + '*');
-        } else {
-            acc.push(item);
-        }
-        return acc;
-    }, [])
-}
-const last = (arr: unknown[]) => arr[arr.length - 1];
-function isMatch(word: string, pattern: string): boolean {
-
-    const stack: StackData[] = [];
-    const createStackTop = <T,>(d: T) => stack.push(d);
-    const readStackTop = () => stack[stack.length - 1];
-    const updateStackTop = <T,>(d: T) => {
-        const old = stack.pop();
-        stack.push({
-            ...old,
-            ...d,
-        })
-    }
-    const deleteStackTop = () => stack.pop();
-
-    const patternArr = getPattern(pattern);
-    let wordCursor = 0;
-    for(let i = 0; patternArr.length > i; i++) {
-        const matcher = patternArr[i];
-        const wildCarded = matcher.length === 2;
-        const backtracked = stack.length ? (readStackTop().index === i) : false;
-        const stackValue = readStackTop();
-        if(backtracked) {
-            const match = getNextMatchAfter(stackValue?.match, matcher[0], word.slice(stackValue.wordCursor));
-            if(match !== false) {
-                const cursor = stackValue.wordCursor + match.length;
-                if((cursor + 1) >= word.length) {
-                    return true;
-                }
-                // 1. if it is not end of the word
-                // 2. If it is not end of the pattern - impossible for the case
-                last(stack).match = match;
-                wordCursor = cursor;
-                i++;
-            } else {
-                deleteStackTop();
-                if(!stack.length) {
-                    return false;
-                }
-                i = readStackTop().index;
+function evalRPN(tokens: string[]): number {
+    const operators = /^[*\-+\/]$/;
+    for(let i = 0; i<tokens.length; i++) {
+        const token = tokens[i];
+        if(operators.test(token)) {
+            const operand1 = tokens[i-2];
+            const operand2 = tokens[i-1];
+            const operator = token;
+            let value = eval(`(${operand1})${operator}(${operand2})`);
+            if(operator === '/') {
+                value = value > 0 ? Math.floor(value) : Math.ceil(value);
             }
-            continue;
-        }
-        if(wildCarded) {
-            const newStackValue: StackData = {
-                match: '',
-                index: i,
-                wordCursor,
-            }
-            // if end of pattern and not end of word?
-            //      we should:
-            //          match the last pattern with the rest of the word
-            //          return true else false
-            // if end of pattern and end of word? (meaning cursor points on undefined)
-            //     return true
-            // if end of word and end of pattern?
-            // if end of word and not end of pattern?
-
-        } else {
-
+            tokens.splice(i-2,3, value);
+            i=i-2;
         }
     }
-    return false;
+    return Number(tokens[0])
 }
+const d = evalRPN(["4","-2","/","2","-3","-","-"]);
+console.log('RESULT', d)
 
-const matched = isMatch('aab', 'c*a*b*cc*.');
-console.log('matched', matched);
+// ["10","6",["9","3","+"],"-11","*","/","*","17","+","5","+"]
+// ["10","6",[[12],"-11","*"],"/","*","17","+","5","+"]
+// ["10",["6",[-132],"/"],"*","17","+","5","+"]
