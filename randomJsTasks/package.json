@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "yarn jest . --watch"
+    "test": "yarn jest . --watch",
+    "script": "ts-node mergeLinkedList.ts"
   },
   "dependencies": {
     "@types/node": "^17.0.23",
