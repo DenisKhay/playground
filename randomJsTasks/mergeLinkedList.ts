@@ -44,6 +44,10 @@ function mergeTwoLists(list1: ListNode | null, list2: ListNode | null): ListNode
             cursor.next = lCursor;
             lCursor = lCursor.next;
         }
+        if(!lCursor || !l2Cursor) {
+            cursor.next.next = lCursor ?? l2Cursor;
+            break;
+        }
         cursor = cursor.next;
     }
     return main.next;
@@ -54,5 +58,5 @@ function mergeTwoLists(list1: ListNode | null, list2: ListNode | null): ListNode
 
 
 const linked1 = {val: 0, next: {val: 2, next: {val: 40, next: null}}};
-const linked2 = {val: 10, next: {val: 20, next: {val: 21, next: null}}};
+const linked2 = {val: 10, next: {val: 20, next: {val: 21, next: { val: 500, next: null }}}};
 mergeTwoLists(linked1, linked2);
