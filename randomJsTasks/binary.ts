@@ -112,34 +112,6 @@ const addBinary = (a: string, b: string): string => {
                 sum = '1' + sum;
                 break;
         }
-
-
-
-
-        if(onlyOneOfIsFilled && !surplus) {
-            sum = '1' + sum;
-            surplus = false;
-            continue;
-        }
-        if(onlyOneOfIsFilled && surplus) {
-            sum = '0' + sum;
-            continue;
-        }
-        if(bothFilled && !surplus) {
-            sum = '0' + sum;
-            surplus = true;
-            continue;
-        }
-        if(bothFilled && surplus) {
-            sum = '1' + sum;
-            continue;
-        }
-        if(surplus) {
-            sum = '1' + sum;
-            surplus = false;
-        } else {
-            sum = '0' + sum;
-        }
     }
     return sum;
 }
