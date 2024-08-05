@@ -13,57 +13,42 @@
 function inorderTraversal(root: TreeNode | null): number[] {
     const results: number[] = [];
     let pointer: TreeNode | null = root;
-
-    let path: ('right' | 'left')[] = [];
-    const parents: TreeNode[] = [];
+    let path: number[] = []; // 0 - left, 1 - right
     let depth = 0;
-    const getVisited = (): null | 'left' | 'right' => {
-        return null;
-    }
-    // left or right | the node |
+    const parents: TreeNode[] = [];
     while (pointer) {
-        // if not roads
-        // if left
-        // if right
-        const visited = path.at(-1) ?? null;
-        if(!visited) {
-            path.push('left');
+        const visited = path.at(depth) ?? null;
+        if(visited == null) {
+            path.push(0);
             if(!pointer.left) {
                 continue;
             }
             parents.push(pointer);
             pointer = pointer.left;
-            // go left
-            //   if(left exists)
-            //      parent.push(pointer)
-            //      pointer = node.left
-            //      path.push('left');
-            //   else
-            //      path.push('left')
-        } else if (visited === 'left') {
+            depth++
+        } else if (visited === 0) {
             results.push(pointer.val);
-            path.pop();
-            path.push('right');
+            path.splice(-1, 1, 1); // replace
             if(!pointer.right) {
                 continue;
             }
             parents.push(pointer);
             pointer = pointer.right;
-            // go right
-            //   results.push(pointer.val)
-            //   if(right exits)
-            //      parent.push(pointer)
-            //      pointer = node.right;
-            //      path.replace('right')
-            //   else
-            //      path.replace('right')
-        } else if (visited === 'right') {
+            depth++;
+        } else if (visited === 1) {
             pointer = parents.pop() ?? null;
             path.pop();
-            // go up
-            //   pointer = parent.pop();
-            //   path.pop();
+            depth--;
         }
     }
     return results;
 };
+
+const rootNode = new TreeNode(1);
+const leftNode = new TreeNode(2);
+const rightNode = new TreeNode(3);
+const leftLeftNode = new TreeNode(5);
+rootNode.left = leftNode;
+rootNode.right = rightNode;
+leftNode.left = leftLeftNode;
+inorderTraversal(rootNode);
