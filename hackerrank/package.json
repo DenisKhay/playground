@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node coords.ts"
+    "start": "ts-node deleteDuplicates.ts"
   },
   "dependencies": {
     "@types/node": "^17.0.23",
