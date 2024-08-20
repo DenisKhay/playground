@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node inorderTraversal.ts"
+    "start": "ts-node treeIsSymmetric.ts"
   },
   "dependencies": {
     "@types/node": "^17.0.23",
