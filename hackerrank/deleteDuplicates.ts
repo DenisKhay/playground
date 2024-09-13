@@ -1,18 +1,15 @@
-/**
- * Definition for singly-linked list.
- * class ListNode {
- *     val: number
- *     next: ListNode | null
- *     constructor(val?: number, next?: ListNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *     }
- * }
- */
-interface ListNode {
-    val: number,
-    next: ListNode | null
-}
+
+
+export class ListNode {
+      val: number
+      next: ListNode | null
+      constructor(val?: number, next?: ListNode | null) {
+          this.val = (val===undefined ? 0 : val)
+          this.next = (next===undefined ? null : next)
+      }
+ }
+
+
 
 function deleteDuplicates_(head: ListNode | null): ListNode | null {
     if(!head) {return null}
@@ -76,4 +73,3 @@ const fromListNode = (list: ListNode | null) => {
     return arr;
 }
 
-console.log(fromListNode(deleteDuplicates(toListNode([1,1,2,3,4,5,5,6]))));

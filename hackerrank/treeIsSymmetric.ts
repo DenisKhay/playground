@@ -1,6 +1,6 @@
 import { TreeNode } from './TreeNode';
 
-function isSymmetric(p: TreeNode | null): boolean {
+function isSymmetric_(p: TreeNode | null): boolean {
     const traverse = (l: TreeNode | null, r: TreeNode | null): boolean => {
         if(l?.val !== r?.val) {
             return false;
@@ -8,7 +8,6 @@ function isSymmetric(p: TreeNode | null): boolean {
         if(!l || !r) {
             return true;
         }
-
         const symmetric = traverse(l.left, r.right);
         if(symmetric) {
             return traverse(l.right, r.left)
@@ -17,6 +16,31 @@ function isSymmetric(p: TreeNode | null): boolean {
     }
     return traverse(p?.left ?? null, p?.right ?? null)
 }
+
+
+
+function isSymmetric(p: TreeNode | null): boolean {
+    if(!p || (!p.left && !p.right)) {
+        return true;
+    }
+   const queue: (TreeNode | null | undefined)[] = [p.left, p.right];
+   while(queue.length) {
+       const left = queue.shift();
+       const right = queue.shift();
+       if(left?.val !== right?.val) {
+           return false;
+       }
+       if(!left && !right) {
+           continue;
+       }
+       queue.push(left?.left);
+       queue.push(right?.right);
+       queue.push(left?.right);
+       queue.push(right?.left);
+   }
+    return true;
+}
+
 
 const rootNode = new TreeNode(1);
 const first = new TreeNode(2);
