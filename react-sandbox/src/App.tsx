@@ -1,30 +1,45 @@
-import { useEffect, useRef, useState } from 'react';
 import './App.css'
 
-let externalVar = 'empty';
-
-window.setInterval(() => {
-    externalVar = externalVar + '_added';
-}, 2000)
-
-
-Promise.resolve().then(() => {
-    throw new Error('hola');
-}).catch((e) => {
-    console.log("got an errror", e);
-})
-
 function App() {
-  const [counter, setCount] = useState(0);
 
-
-
-  return (
-    <>
-        TEST
-        {counter}
-    </>
-  )
+  return null;
 }
 
 export default App
+
+
+const firstAwaitExample = async () => {
+
+let done = false;
+
+const fn = async () => {
+  console.log('inside fn');
+}
+async function foo() {
+  await fn();
+  console.log('inside foo and after fn')
+  done = true;
+}
+console.log('Start');
+foo();
+console.log('End. Done is', done); // ❌ false, not yet resumed
+
+}
+
+
+// firstAwaitExample();
+
+const secondExample = async () => {
+  async function foo() {
+  await bar();
+  console.log('After bar');
+}
+
+async function bar() {
+  console.log('Inside bar');
+}
+console.log('Start 2');
+foo();
+console.log('End 2')
+}
+secondExample();
